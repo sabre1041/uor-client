@@ -1,8 +1,8 @@
 project_name: client
 
 env:
-- GO111MODULE=on
-- COSIGN_EXPERIMENTAL=true
+  - GO111MODULE=on
+  - COSIGN_EXPERIMENTAL=true
 
 before:
   hooks:
@@ -10,8 +10,7 @@ before:
     - go mod vendor
 
 builds:
-  -
-    binary: client-{{ .Os }}-{{ .Arch }}
+  - binary: client-{{ .Os }}-{{ .Arch }}
     no_unique_dist_dir: true
     main: ./cmd/client
     flags:
@@ -50,21 +49,21 @@ builds:
       - "-X github.com/uor-framework/client/cli.buildDate={{ .Date }}"
     env:
       - CGO_ENABLED=0
-  
+
 signs:
-- id: client-keyless
-  signature: "${artifact}.sig"
-  certificate: "${artifact}.pem"
-  env:
-  - COSIGN_EXPERIMENTAL=1
-  cmd: cosign
-  args:
-    - sign-blob
-    - "--output-certificate=${certificate}"
-    - "--output-signature=${signature}"
-    - "${artifact}"
-  artifacts: binary
-  output: true
+  - id: client-keyless
+    signature: "${artifact}.sig"
+    certificate: "${artifact}.pem"
+    env:
+      - COSIGN_EXPERIMENTAL=1
+    cmd: cosign
+    args:
+      - sign-blob
+      - "--output-certificate=${certificate}"
+      - "--output-signature=${signature}"
+      - "${artifact}"
+    artifacts: binary
+    output: true
 
 archives:
   - format: binary
@@ -77,49 +76,48 @@ archives:
       amd64: x86_64
 
 sboms:
-- artifacts: binary
+  - artifacts: binary
 
 dockers:
-  - image_templates: 
-      - ghcr.io/uor-framework/{{ .ProjectName }}:{{ .Tag }}-amd64
+  - image_templates:
+      - ghcr.io/sabre1041/{{ .ProjectName }}:{{ .Tag }}-amd64
     dockerfile: Containerfile
     use: buildx
     build_flag_templates:
-    - --platform=linux/amd64
-    - --label=org.opencontainers.image.title={{ .ProjectName }}
-    - --label=org.opencontainers.image.description={{ .ProjectName }}
-    - --label=org.opencontainers.image.url=https://github.com/uor-framework/{{ .ProjectName }}
-    - --label=org.opencontainers.image.source=https://github.com/uor-framework/{{ .ProjectName }}
-    - --label=org.opencontainers.image.version={{ .Tag }}
-    - --label=org.opencontainers.image.created={{ .Date }}
-    - --label=org.opencontainers.image.revision={{ .FullCommit }}
-    - --label=org.opencontainers.image.licenses=APACHE2.0
+      - --platform=linux/amd64
+      - --label=org.opencontainers.image.title={{ .ProjectName }}
+      - --label=org.opencontainers.image.description={{ .ProjectName }}
+      - --label=org.opencontainers.image.url=https://github.com/uor-framework/{{ .ProjectName }}
+      - --label=org.opencontainers.image.source=https://github.com/uor-framework/{{ .ProjectName }}
+      - --label=org.opencontainers.image.version={{ .Tag }}
+      - --label=org.opencontainers.image.created={{ .Date }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - --label=org.opencontainers.image.licenses=APACHE2.0
 docker_manifests:
-  - name_template: uor-framework/client:{{ .Tag }}
+  - name_template: sabre1041/client:{{ .Tag }}
     image_templates:
-      - uor-framework/client:{{ .Tag }}-amd64
+      - sabre1041/client:{{ .Tag }}-amd64
   - name_template: uor-framework/client:latest
     image_templates:
-      - uor-framework/client:{{ .Tag }}-amd64
+      - sabre1041/client:{{ .Tag }}-amd64
 
 checksum:
-  name_template: 'checksums.txt'
+  name_template: "checksums.txt"
 
 changelog:
   sort: asc
   filters:
     exclude:
-    - '^docs:'
-    - '^test:'
-    - Merge pull request
-    - Merge branch
-    - go mod tidy
+      - "^docs:"
+      - "^test:"
+      - Merge pull request
+      - Merge branch
+      - go mod tidy
 
 snapshot:
   name_template: SNAPSHOT-{{ .ShortCommit }}
 
 release:
-
   prerelease: allow
   draft: true
   github:
