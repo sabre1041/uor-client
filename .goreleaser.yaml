@@ -121,8 +121,8 @@ release:
   prerelease: allow
   draft: true
   github:
-    owner: uor-framework
-    name: client
+    owner: sabre1041
+    name: uor-client
 
   header: |
 
