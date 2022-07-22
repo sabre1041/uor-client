@@ -2,7 +2,14 @@ name: CI
 on:
   push:
     branches:
-      - gorelease-test
+      - main
+      - "release/**"
+    tags:
+      - v*
+  pull_request:
+    branches:
+      - main
+      - "release/**"
 
 permissions:
   contents: write
