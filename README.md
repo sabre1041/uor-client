@@ -25,22 +25,27 @@ To learn more about Universal Runtime visit the UOR Framework website at <https:
 
 ```
 make
-./bin/uor-client-go -h
 ```
 
 ### Test
 
-#### Unit
-
 ```
 make test-unit
+```
+
+### Run
+
+```
+./bin/uor-client-go help
 ```
 
 ## Basic Usage
 
 ### Version
 
+```
 uor-client-go version
+```
 
 ### User Workflow
 
