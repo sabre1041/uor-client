@@ -11,7 +11,7 @@ Please join us in the discussion forum and feel free to ask questions about the 
 The Universal Runtime Client interacts with UOR artifacts and is aware of the runtime instruction
 embedded in UOR artifacts.
 
-To learn more about Universal Runtime visit the UOR Framework website at <https://uor-framework.github.io>.
+To learn more about Universal Runtime visit the UOR Framework website at <https://universalreference.io>.
 
 > WARNING: The repository is under active development and the API is subject to change.
 
@@ -25,22 +25,27 @@ To learn more about Universal Runtime visit the UOR Framework website at <https:
 
 ```
 make
-./bin/uor-client-go -h
 ```
 
 ### Test
 
-#### Unit
-
 ```
 make test-unit
+```
+
+### Run
+
+```
+./bin/uor-client-go help
 ```
 
 ## Basic Usage
 
 ### Version
 
+```
 uor-client-go version
+```
 
 ### User Workflow
 
